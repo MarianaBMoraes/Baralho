@@ -3,23 +3,24 @@ const naipe_controller = require("./controllers/naipe.js");
 const app = express();
 const port = 3000;
 
+app.use(express.json());
 app.post("/naipe", (req, res) => {
   const naipe = req.body;
   const code = naipe_controller.store(naipe);
   res.status(code).json();
 });
 
-app.get("./naipe", (req, res) => {
-  const naipes = naipe_controller.idex();
+app.get("/naipe", (req, res) => {
+  const naipes = naipe_controller.index();
   res.json(naipes);
 });
 
-app.get("./naipe/:id", (req, res) => {
+app.get("/naipe/:id", (req, res) => {
   const naipe = naipe_controller.show(req.params.id);
   res.json(naipe);
 });
 
-app.put("./naipe/:id", (req, res) => {
+app.put("/naipe/:id", (req, res) => {
   const naipe = req.body;
   const code = naipe_controller.update(req.params.id, naipe);
   res.status(code).json();
